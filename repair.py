@@ -20,6 +20,7 @@ column_location=config['column_location']
 dstlist=config['dst']
 dst=np.array(dstlist, dtype=np.float32)
 top=config['top']
+W=config['w']
 
 
 
@@ -95,5 +96,48 @@ img_finish=img_open[0:top]
 cv2.imwrite("img_finish.jpg", img_finish)
 #
 
+for point in locations:
+    # Check if the point is within the target region
+    print("\npoint:", point)
+    if (point[0] < column_location[0] - W or point[0] > column_location[-1] + W or
+            point[1] < number_top[0] - W or point[1] > number_top[-1] + W):
+        continue
+    # Match the point with the rows and columns
+    # Rows
+    left = 0
+    right = len(column_location) - 1
+    while left < right:
+        mid = (left + right) // 2
+        if point[0] < column_location[mid]+W/2:
+            right = mid
+        elif point[0]> column_location[mid]-W/2:
+            left = mid + 1
+        else:
+            break
+    col = left
 
+    # Columns
+    left = 0
+    right = len(number_top) - 1
+    while left < right:
+        mid = (left + right) // 2
+        if point[1] < number_top[mid]+W/2:
+            right = mid
+        elif point[1] > number_top[mid]-W/2:
+            left = mid + 1
+        else:
+            break
+    row = left
+
+    if col==b:
+        b_=row
+    elif col==c:
+        c_=row
+    # Extract the class ID
+    # if col >= 0 and row >= 0:
+    #     serial_num[col] = row
+
+    print("col:", col, "row:", row)
+
+print("class:",b,c,sep='')
 

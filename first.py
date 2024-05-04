@@ -275,7 +275,8 @@ config_dict ={
     'number_top': number_top,
     'column_location': xx,
     'dst': dst,
-    'top':top
+    'top':top,
+    'w':ww[-1]
 }
 with open('config.json','w') as f:
     json.dump(config_dict,f)

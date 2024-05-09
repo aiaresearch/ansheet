@@ -1,5 +1,3 @@
-#def first():
-
 import cv2
 from sklearn.cluster import KMeans
 import numpy as np
@@ -166,7 +164,9 @@ dict1=result = {'words_result': [{'chars': [{'char': '5', 'location': {'top': 75
 print(dict1)
 print(ww)
 maxnumber=0
-clas=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+clas=[]
+for i in range(len(xx)):
+    clas.append([])
 where=[[],[],[],[],[],[],[],[],[],[]]
 numbers=['0','2','3','4','5','6','7','8','9']
 list0=dict1['words_result']
@@ -280,4 +280,3 @@ config_dict ={
 }
 with open('config.json','w') as f:
     json.dump(config_dict,f)
-

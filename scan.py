@@ -2,7 +2,6 @@ from __future__ import print_function
 import sane
 import numpy
 from PIL import Image
-
 #
 # Change these for 16bit / grayscale scans
 #
@@ -54,7 +53,7 @@ print('Device parameters:', params)
 #
 dev.start()
 im = dev.snap()
-im.save('test_pil.png')
+im.save("test.png")
 
 
 #

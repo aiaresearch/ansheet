@@ -137,7 +137,7 @@ xx.sort()
 print(xx)
 def baidu_ocr(image_path, recognize_granularity='small'):
     
-    access_token = "24.dc3e85384fb5991797758fac4bb5fe39.2592000.1715675942.282335-48885010"
+    access_token = "24.d68733a3c57e2020f01cf4ce17f83635.2592000.1718528425.282335-48885010"
     
     url = "https://aip.baidubce.com/rest/2.0/ocr/v1/numbers"
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}

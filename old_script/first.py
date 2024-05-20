@@ -17,12 +17,14 @@ img_gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 #img_binary=img_thre=cv2.adaptiveThreshold(img_gray,100,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,31,30)
 _,img_binary=cv2.threshold(img_gray,127,255,cv2.THRESH_BINARY)
 cv2.imwrite('a.jpg',img_binary)
+h,w,l=img.shape
 
-
-kernel=np.ones((3,3),np.uint8)
+kernel=np.ones((int((h+w)/350),int((h+w)/350)),np.uint8)
 #img_open=cv2.morphologyEx(img_binary,cv2.MORPH_OPEN,kernel)
-img_open=(cv2.dilate(img_binary,kernel,iterations=6))
-img_open=(cv2.erode(img_open,kernel,iterations=6))
+img_open=(cv2.dilate(img_binary,kernel,iterations=1))
+img_open=(cv2.erode(img_open,kernel,iterations=1))
+cv2.imshow('a',img_open)
+cv2.waitKey()
 
 contours,hierarchy=cv2.findContours(img_open,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
 
@@ -74,6 +76,8 @@ for peak in docCnt:
 # cv2.waitKey(0)
 cv2.imwrite("image/img_enrode.jpg", img_open)
 
+
+
 src = np.array([points[0], points[1], points[2], points[3]], dtype=np.float32)
 dst = np.array([[0, 0], [0, hh], [ww, hh], [ww, 0]], dtype=np.float32)
 
@@ -102,17 +106,27 @@ for cnt in contours2:
 
 
 y=km_model = KMeans(n_clusters=2,n_init=1,init=np.array([[img.shape[1]/2, 0], [img.shape[1]/2, img.shape[0]]])).fit(locations)
-
+print(np.array([[img.shape[1]/2, 0], [img.shape[1]/2, img.shape[0]]]))
 labels = y.labels_
-
-
+centers=y.cluster_centers_
+print(centers)
+if (locations[0][0]-centers[0][0])**2+(locations[0][1]-centers[0][1])**2>(locations[0][0]-centers[1][0])**2+(locations[0][1]-centers[1][1])**2:
+    if centers[1][0]>centers[0][0]:
+        up=labels[0]
+    else:
+        up=abs(labels[0]-1)
+else:
+    if centers[1][0]>centers[0][0]:
+        up=abs(labels[0]-1)
+    else:
+        up=labels[0]
 
 print(xx)
 top=img_finish.shape[0]
 new=[]
 for i in range(0,len(labels)):
     new.append([locations[i],labels[i]])
-    if labels[i]==0:
+    if labels[i]==up:
         _str='0'
         
     else:
@@ -121,7 +135,7 @@ for i in range(0,len(labels)):
         xx.remove(locations[i][0])
         if yy[i]<top:
             top=yy[i]+h
-    cv2.putText(img_finish,_str,locations[i],1,1,(255,0,0))
+    cv2.putText(img_finish,_str,locations[i],1,1,(0,0,0))
 ww.sort()
 # cv2.imshow('img',img_finish)
 # cv2.waitKey()
@@ -174,10 +188,21 @@ for i in range(len(xx)):
 where=[[],[],[],[],[],[],[],[],[],[]]
 numbers=['0','2','3','4','5','6','7','8','9']
 list0=dict1['words_result']
+all_top=[]
 for i in range(0,len(list0)):
     list0_5=list0[i].get('chars')
     same_words=list0[i].get('words')
-    if len(same_words)!=1:
+    for j in range(len(list0_5)):
+        a=list0_5[j].get('location').get('top')
+        all_top.append(a)
+median=np.median(all_top)
+for i in range(len(list0)):
+    list0_5=list0[i].get('chars')
+    same_words=list0[i].get('words')
+    general_top=list0[i].get('location').get('top')
+    if general_top<median-6*ww[-1] or general_top>median+6*ww[-1] :
+        truenumber=-1
+    elif len(same_words)!=1:
         maxcount=0
         frequency=[[],[],[],[],[],[],[],[],[],[]]
         for i in range(0,10):
@@ -195,7 +220,10 @@ for i in range(0,len(list0)):
    
     for j in range(0,len(list0_5)):
         str_=list0_5[j].get('char')
-        if str_!=truenumber:
+        if truenumber==-1:
+            pass
+        
+        elif str_!=truenumber:
             pass
         else:
             for number in numbers:
@@ -205,16 +233,17 @@ for i in range(0,len(list0)):
                     if int(number)>maxnumber:
                         maxnumber=int(number)
                     for x in xx:
-                        if list0_5[j].get('location').get('left') in range(x,x+ww[-1]):
+                        if list0_5[j].get('location').get('left') in range(x-int(0.2*ww[-1]),x+int(1.2*ww[-1])):
                             if clas[xx.index(x)]==[]:
                                 clas[xx.index(x)].append(number)
+                                print(number)
                             elif int(str_)>int(clas [xx.index(x)][-1]):
                                 clas[xx.index(x)].append(number)
 
 print(clas)
 column=[member for member in clas if len(member)>maxnumber-2]
 print(column)
-
+print(where)
 
 
 ii=[i for i in range(0,len(clas)) if clas[i] not in column]
@@ -230,19 +259,16 @@ print(len(column))
 
 listb=[]
 listb0=column[b-1]
-for i in range(0,maxnumber+1):
+for i in range(maxnumber+1):
     i=str(i)
     if listb0.count(i)==0:
         listb.append(i)
 
+b_=1
 if listb!=[1]:
     for item in listb:
         if where[int(item)]!=[] and item!='1':
             b_=int(item)
-else:
-    b_=1
-
-
 
 listc=[]
 listc0=column[c-1]
@@ -251,12 +277,12 @@ for i in range(0,10):
     if listc0.count(i)==0:
         listc.append(i)
 
+c_=1
 if listc!=[1]:
     for item in listc:
         if where[int(item)]!=[] and item!='1':
             c_=int(item)
-else:
-    c_=1
+
 
 print('班级:',b_,c_,sep='')
 

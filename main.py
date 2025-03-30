@@ -122,11 +122,10 @@ def repair(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="arguments")
     parser.add_argument(
-        "--mode",
         "-m",
         type=int,
         required=True,
-        help="'1' represent first mode,'2' represent repair mode",
+        help="'1' for first mode,'2' for repair mode",
     )
     parser.add_argument("--path", type=str, default="image/img.jpg", help="image path")
     parser.add_argument(

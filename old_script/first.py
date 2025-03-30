@@ -9,8 +9,9 @@ os.environ["OMP_NUM_THREADS"] = '1'
 
 
 b,c=5,6#map(int,input('准考证号的第几位是班级？（两位之间用空格连接）').split())
-img=cv2.imread('image/img.jpg')
-img=cv2.pyrDown(img)
+n=8
+img=cv2.imread('image/img1.jpg')
+#img=cv2.pyrDown(img)
 img=cv2.copyMakeBorder(img,4,4,0,0,cv2.BORDER_CONSTANT,value=(255,255,255))
 img=img[:,20:img.shape[1]-20]
 img_gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -21,8 +22,8 @@ h,w,l=img.shape
 
 kernel=np.ones((int((h+w)/350),int((h+w)/350)),np.uint8)
 #img_open=cv2.morphologyEx(img_binary,cv2.MORPH_OPEN,kernel)
-img_open=(cv2.dilate(img_binary,kernel,iterations=1))
-img_open=(cv2.erode(img_open,kernel,iterations=1))
+img_open=(cv2.dilate(img_binary,kernel,iterations=2))
+img_open=(cv2.erode(img_open,kernel,iterations=2))
 cv2.imshow('a',img_open)
 cv2.waitKey()
 
@@ -36,12 +37,12 @@ locations=[]
 for contour in contours:
     rect = cv2.boundingRect(contour)
     x, y, w, h = rect
-    if w > h and w > 10 and w < 150 and h < 150:
-        #cv2.rectangle(img_open, (x, y), (x + w, y + h), (0, 0, 255), 1)
+    if  w > 10 and w < 100 and h < 100:
+        cv2.rectangle(img_open, (x, y), (x + w, y + h), (0, 0, 255), 1)
         locations.append((x, y))
         xx.append(x)
         yy.append(y)
-
+cv2.imwrite('contours.jpg',img_open)
 leftup = (float('inf'), (-1, -1))
 rightdown = (0, (-1, -1))
 leftdown = (float('inf'), (-1, -1))
@@ -98,31 +99,63 @@ contours2,hierarchy=cv2.findContours(img_finish,cv2.RETR_TREE,cv2.CHAIN_APPROX_N
 for cnt in contours2:
     x,y,w,h=cv2.boundingRect(cnt)
     if w>h and w<300 and h<300:
-        cv2.rectangle(img_finish,(x,y),(x+w,y+h),(0,0,255),1)
+        cv2.rectangle(img_finish,(x,y),(x+w,y+h),(100,100,100),1)
         locations.append((x,y))
         ww.append(w)
         xx.append(x)
         yy.append(y)
 
 
-y=km_model = KMeans(n_clusters=2,n_init=1,init=np.array([[img.shape[1]/2, 0], [img.shape[1]/2, img.shape[0]]])).fit(locations)
-print(np.array([[img.shape[1]/2, 0], [img.shape[1]/2, img.shape[0]]]))
+
+locations_arr=np.array([xx,yy])
+locations_arr=locations_arr.T
+print(locations_arr)
+# locations_arr=locations_arr.reshape((len(locations),2))
+# print(locations_arr)
+print(locations)
+middle=np.median(yy)
+print(middle)
+top=0
+print('start:',len(locations))
+print(len(locations))
+for i in range(len(locations)-1,-1,-1):
+    if locations_arr[i][1]>1.5*middle:
+        print(locations[i])
+        print(locations_arr[i][1])
+        locations.pop(i)
+        locations_arr=np.delete(locations_arr,i,0)
+        xx.pop(i)
+        yy.pop(i)
+        ww.pop(i)
+    else:
+        locations_arr[i][1]=500*locations[i][1]
+        if yy[i]>top:
+            top=yy[i]
+print('end:',len(locations))
+print(len(locations))
+
+# for location in locations:
+#     cv2.putText(img_finish,str(location),location,1,1,(100,100,100),1,1)
+# cv2.imwrite('test.jpg',img_finish)
+
+
+y=km_model = KMeans(n_clusters=2,n_init=1,init=[(img.shape[1]/2,0),(img.shape[1]/2,top)]).fit(locations_arr)
+# print(np.array([[img.shape[1]/2, 0], [img.shape[1]/2, top]]))
 labels = y.labels_
 centers=y.cluster_centers_
 print(centers)
 if (locations[0][0]-centers[0][0])**2+(locations[0][1]-centers[0][1])**2>(locations[0][0]-centers[1][0])**2+(locations[0][1]-centers[1][1])**2:
-    if centers[1][0]>centers[0][0]:
+    if centers[1][1]>centers[0][1]:
         up=labels[0]
     else:
         up=abs(labels[0]-1)
 else:
-    if centers[1][0]>centers[0][0]:
+    if centers[1][1]>centers[0][1]:
         up=abs(labels[0]-1)
     else:
         up=labels[0]
 
 print(xx)
-top=img_finish.shape[0]
 new=[]
 for i in range(0,len(labels)):
     new.append([locations[i],labels[i]])
@@ -135,11 +168,15 @@ for i in range(0,len(labels)):
         xx.remove(locations[i][0])
         if yy[i]<top:
             top=yy[i]+h
-    cv2.putText(img_finish,_str,locations[i],1,1,(0,0,0))
+    cv2.putText(img_finish,_str,locations[i],1,2,(0,0,0),4)
 ww.sort()
+cv2.imwrite('kmeans.jpg',img_finish)
+
+
+
 # cv2.imshow('img',img_finish)
 # cv2.waitKey()
-top=1000
+
 img_cut=img_finish[0:top,:]
 img=img[0:top,:]
 
@@ -254,7 +291,33 @@ for i in ii:
     else:
         xx.pop(i)
 #print(where)
+print(xx)
+print(column)
 print(len(xx))
+if len(xx) > n:
+    number=len(xx)-n
+    difference=[]
+    for i in range(len(xx)):
+        j=i+1
+        if i == len(xx)-1:
+            break
+        diff=xx[j]-xx[i]
+        difference.append(diff)
+    mid=np.median(difference)
+    for i in range(len(xx)-2,-1,-1):
+        if difference[i]<0.8*mid:
+            print(xx[i])
+            xx.pop(i)
+            print(column[i])
+            column.pop(i)
+            number-=1
+            if number==0:
+                break
+            
+print('remove result:',len(xx))
+
+    
+
 print(len(column))
 
 listb=[]

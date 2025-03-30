@@ -98,7 +98,6 @@ for cnt in contours2:
         yy.append(y)
 
 
-
 y=km_model = KMeans(n_clusters=2,n_init=1,init=np.array([[img.shape[1]/2, 0], [img.shape[1]/2, img.shape[0]]])).fit(locations)
 
 labels = y.labels_

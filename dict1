@@ -1,0 +1,35 @@
+{'words_result': [{'chars': [{'char': '0', 'location': {'top': 65, 'left': 35, 'width': 13, 'height': 26}}, {'char': '0', 'location': {'top': 65, 'left': 111, 'width':
+14, 'height': 26}}, {'char': '0', 'location': {'top': 65, 'left': 152, 'width': 13, 'height': 26}}, {'char': '0', 'location': {'top': 65, 'left': 271, 'width': 13, 'hei
+ght': 26}}, {'char': '0', 'location': {'top': 65, 'left': 311, 'width': 13, 'height': 26}}], 'words': '00000', 'location': {'top': 65, 'left': 25, 'width': 299, 'height
+': 26}}, {'chars': [{'char': '1', 'location': {'top': 84, 'left': 35, 'width': 14, 'height': 28}}], 'words': '1', 'location': {'top': 84, 'left': 25, 'width': 226, 'hei
+ght': 28}}, {'chars': [{'char': '2', 'location': {'top': 112, 'left': 152, 'width': 10, 'height': 18}}, {'char': '2', 'location': {'top': 112, 'left': 191, 'width': 10,
+ 'height': 18}}, {'char': '2', 'location': {'top': 112, 'left': 232, 'width': 10, 'height': 18}}, {'char': '2', 'location': {'top': 112, 'left': 272, 'width': 10, 'heig
+ht': 18}}, {'char': '2', 'location': {'top': 112, 'left': 312, 'width': 10, 'height': 18}}], 'words': '22222', 'location': {'top': 112, 'left': 150, 'width': 179, 'heig
+ht': 18}}, {'chars': [{'char': '3', 'location': {'top': 136, 'left': 75, 'width': 10, 'height': 19}}, {'char': '3', 'location': {'top': 136, 'left': 115, 'width': 10, '
+height': 19}}, {'char': '3', 'location': {'top': 136, 'left': 192, 'width': 10, 'height': 19}}, {'char': '3', 'location': {'top': 136, 'left': 234, 'width': 10, 'height
+': 19}}], 'words': '3333', 'location': {'top': 136, 'left': 65, 'width': 184, 'height': 19}}, {'chars': [{'char': '4', 'location': {'top': 156, 'left': 35, 'width': 11,
+ 'height': 21}}, {'char': '4', 'location': {'top': 156, 'left': 74, 'width': 11, 'height': 21}}, {'char': '4', 'location': {'top': 156, 'left': 114, 'width': 11, 'heigh
+t': 21}}, {'char': '4', 'location': {'top': 156, 'left': 153, 'width': 10, 'height': 21}}, {'char': '4', 'location': {'top': 156, 'left': 193, 'width': 10, 'height': 21
+}}, {'char': '4', 'location': {'top': 156, 'left': 233, 'width': 10, 'height': 21}}, {'char': '4', 'location': {'top': 156, 'left': 273, 'width': 11, 'height': 21}}], '
+words': '4444444', 'location': {'top': 156, 'left': 27, 'width': 263, 'height': 21}}, {'chars': [{'char': '5', 'location': {'top': 179, 'left': 75, 'width': 11, 'height
+': 21}}, {'char': '5', 'location': {'top': 179, 'left': 114, 'width': 11, 'height': 21}}, {'char': '5', 'location': {'top': 179, 'left': 153, 'width': 10, 'height': 21}
+}, {'char': '5', 'location': {'top': 179, 'left': 193, 'width': 10, 'height': 21}}, {'char': '5', 'location': {'top': 179, 'left': 232, 'width': 11, 'height': 21}}, {'c
+har': '5', 'location': {'top': 179, 'left': 273, 'width': 11, 'height': 21}}, {'char': '5', 'location': {'top': 179, 'left': 314, 'width': 10, 'height': 21}}], 'words':
+ '5555555', 'location': {'top': 179, 'left': 26, 'width': 298, 'height': 21}}, {'chars': [{'char': '6', 'location': {'top': 201, 'left': 35, 'width': 11, 'height': 22}}
+, {'char': '6', 'location': {'top': 201, 'left': 75, 'width': 11, 'height': 22}}, {'char': '6', 'location': {'top': 201, 'left': 114, 'width': 11, 'height': 22}}, {'cha
+r': '6', 'location': {'top': 201, 'left': 151, 'width': 11, 'height': 22}}, {'char': '6', 'location': {'top': 201, 'left': 192, 'width': 11, 'height': 22}}, {'char': '6
+', 'location': {'top': 201, 'left': 231, 'width': 11, 'height': 22}}, {'char': '6', 'location': {'top': 201, 'left': 272, 'width': 11, 'height': 22}}, {'char': '6', 'lo
+cation': {'top': 201, 'left': 314, 'width': 8, 'height': 22}}], 'words': '66666666', 'location': {'top': 201, 'left': 25, 'width': 297, 'height': 22}}, {'chars': [{'cha
+r': '7', 'location': {'top': 224, 'left': 35, 'width': 11, 'height': 20}}, {'char': '7', 'location': {'top': 224, 'left': 74, 'width': 11, 'height': 20}}, {'char': '7',
+ 'location': {'top': 224, 'left': 114, 'width': 11, 'height': 20}}, {'char': '7', 'location': {'top': 224, 'left': 153, 'width': 10, 'height': 20}}, {'char': '7', 'loca
+tion': {'top': 224, 'left': 193, 'width': 10, 'height': 20}}, {'char': '7', 'location': {'top': 224, 'left': 233, 'width': 10, 'height': 20}}, {'char': '7', 'location':
+ {'top': 224, 'left': 273, 'width': 11, 'height': 20}}], 'words': '7777777', 'location': {'top': 224, 'left': 27, 'width': 288, 'height': 20}}, {'chars': [{'char': '8',
+ 'location': {'top': 247, 'left': 35, 'width': 11, 'height': 20}}, {'char': '8', 'location': {'top': 247, 'left': 75, 'width': 11, 'height': 20}}, {'char': '8', 'locati
+on': {'top': 247, 'left': 114, 'width': 11, 'height': 20}}, {'char': '8', 'location': {'top': 247, 'left': 153, 'width': 10, 'height': 20}}, {'char': '8', 'location': {
+'top': 247, 'left': 192, 'width': 10, 'height': 20}}, {'char': '8', 'location': {'top': 247, 'left': 233, 'width': 10, 'height': 20}}, {'char': '8', 'location': {'top':
+ 247, 'left': 273, 'width': 11, 'height': 20}}, {'char': '8', 'location': {'top': 247, 'left': 314, 'width': 10, 'height': 20}}], 'words': '88888888', 'location': {'top
+': 247, 'left': 26, 'width': 303, 'height': 20}}, {'chars': [{'char': '9', 'location': {'top': 270, 'left': 36, 'width': 10, 'height': 19}}, {'char': '9', 'location': {
+'top': 270, 'left': 73, 'width': 10, 'height': 19}}, {'char': '9', 'location': {'top': 270, 'left': 115, 'width': 9, 'height': 19}}, {'char': '9', 'location': {'top': 2
+70, 'left': 154, 'width': 10, 'height': 19}}, {'char': '9', 'location': {'top': 270, 'left': 192, 'width': 10, 'height': 19}}, {'char': '9', 'location': {'top': 270, 'l
+eft': 232, 'width': 10, 'height': 19}}, {'char': '9', 'location': {'top': 270, 'left': 272, 'width': 10, 'height': 19}}, {'char': '9', 'location': {'top': 270, 'left':
+311, 'width': 11, 'height': 19}}], 'words': '99999999', 'location': {'top': 270, 'left': 27, 'width': 302, 'height': 19}}], 'words_result_num': 10, 'log_id': 1902362010992132518}

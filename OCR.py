@@ -1,9 +1,7 @@
 import requests
 import base64
 
-
 def baidu_ocr(image_path, recognize_granularity="small"):
-
     access_token = (
         "24.dc3e85384fb5991797758fac4bb5fe39.2592000.1715675942.282335-48885010"
     )
@@ -22,3 +20,9 @@ def baidu_ocr(image_path, recognize_granularity="small"):
     # Send OCR request
     response = requests.post(url, headers=headers, params=params, data=data)
     return response
+
+
+
+
+
+

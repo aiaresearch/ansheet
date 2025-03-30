@@ -26,4 +26,8 @@ def init():
 
 def scan(dev):
     im=dev.arr_scan()
+<<<<<<< HEAD
     cv2.imwrite('image/img.jpg',im)
+=======
+    cv2.imwrite('image/img.jpg')
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d

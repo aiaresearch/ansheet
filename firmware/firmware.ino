@@ -66,15 +66,24 @@ void loop() {
                 moveServoToDegree(i + 1, 50);
                 Serial.print("Raising servo No. ");
                 Serial.println(i + 1);
+<<<<<<< HEAD
                 Serial.print("Current countdown value ");
                 Serial.println(resetting_countdown[i]);
+=======
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
                 // resetting_countdown[i] += 3000;
             }
         }
         // Servo i is up.
+<<<<<<< HEAD
         if ((raising_countdown[i] == 0) && (resetting_countdown[i] > 0)) {
             resetting_countdown[i]--;
             if (resetting_countdown[i] == 0) {
+=======
+        if (raising_countdown[i] == 0 && resetting_countdown[i] > 0) {
+            resetting_countdown[i]--;
+            if (raising_countdown[i] == 0) {
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
                 moveServoToDegree(i + 1, 0);
                 Serial.print("Resetting servo No. ");
                 Serial.println(i + 1);
@@ -85,6 +94,7 @@ void loop() {
   // Handle serial command
   if (Serial.available() > 0) {
     data = Serial.read();
+<<<<<<< HEAD
     if (data >= '0')
         data -= '0';
     Serial.print("Received data: ");
@@ -98,6 +108,17 @@ void loop() {
             Serial.println(data);
         }
         resetting_countdown[data-1] += 5000; // DELAY BEFORE RESETTING
+=======
+    // Servo movement schedule
+    if (data >= 1 && data <= 4) { // 确保输入的数字在0到3之间
+        // No movement has already been scheduled
+        if (raising_countdown[data-1] == 0) {
+            raising_countdown[data-1] = 1000 * data + 3000;
+            Serial.print("Schedule new movement on servo No. ");
+            Serial.println(data);
+        }
+        resetting_countdown[data-1] += 3000;
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
         Serial.print("Add 3000ms to resetting countdown of servo No.");
         Serial.print(data);
         Serial.print(", current countdown value ");
@@ -106,28 +127,48 @@ void loop() {
     }
 
     // Servo reset
+<<<<<<< HEAD
     if (data == 5) {
+=======
+    if (data == 11) {
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
         moveServoToDegree(1, 0);
         moveServoToDegree(2, 0);
         moveServoToDegree(3, 0);
         moveServoToDegree(4, 0);
         Serial.println("Resetted all servo.");
     }
+<<<<<<< HEAD
     if (data == 6) {
       moveServoToDegree(4, 85);  // 将舵机转到90度位置
       moveServoToDegree(1, 85);
       moveServoToDegree(2, 85);
       moveServoToDegree(3, 85);
+=======
+    if (data == 12) {
+      moveServoToDegree(4, 50);  // 将舵机转到90度位置
+      moveServoToDegree(1, 50);
+      moveServoToDegree(2, 50);
+      moveServoToDegree(3, 50);
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
       Serial.println("Raised all servo.");
     }
 
     // Motor control
     // Stop motors
+<<<<<<< HEAD
     if (data == 7) {
         set_motor(LOW);
         Serial.println("Powered off motors");
     }
     if(data == 8){
+=======
+    if (data == 13) {
+        set_motor(LOW);
+        Serial.println("Powered off motors");
+    }
+    if(data == 14){
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
         set_motor(HIGH);
         Serial.println("Powered on motors");
     }

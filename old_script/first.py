@@ -8,6 +8,7 @@ import os
 os.environ["OMP_NUM_THREADS"] = '1'
 
 
+<<<<<<< HEAD
 b,c=5,6#map(int,input('准考证号的第几位是班级？（两位之间用空格连接）').split())
 n=8
 img=cv2.imread('image/img1.jpg')
@@ -26,6 +27,19 @@ img_open=(cv2.dilate(img_binary,kernel,iterations=2))
 img_open=(cv2.erode(img_open,kernel,iterations=2))
 cv2.imshow('a',img_open)
 cv2.waitKey()
+=======
+b,c=map(int,input('准考证号的第几位是班级？（两位之间用空格连接）').split())
+img=cv2.imread('image/bigscan.png')
+img=cv2.pyrDown(img)
+img_gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+img_binary=img_thre=cv2.adaptiveThreshold(img_gray,100,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,31,30)
+
+
+kernel=np.ones((3,3),np.uint8)
+#img_open=cv2.morphologyEx(img_binary,cv2.MORPH_OPEN,kernel)
+img_open=(cv2.dilate(img_binary,kernel,iterations=3))
+img_open=(cv2.erode(img_open,kernel,iterations=3))
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 
 contours,hierarchy=cv2.findContours(img_open,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
 
@@ -37,12 +51,21 @@ locations=[]
 for contour in contours:
     rect = cv2.boundingRect(contour)
     x, y, w, h = rect
+<<<<<<< HEAD
     if  w > 10 and w < 100 and h < 100:
         cv2.rectangle(img_open, (x, y), (x + w, y + h), (0, 0, 255), 1)
         locations.append((x, y))
         xx.append(x)
         yy.append(y)
 cv2.imwrite('contours.jpg',img_open)
+=======
+    if w > h and w > 10 and w < 150 and h < 150:
+        #cv2.rectangle(img_open, (x, y), (x + w, y + h), (0, 0, 255), 1)
+        locations.append((x, y))
+        xx.append(x)
+        yy.append(y)
+
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 leftup = (float('inf'), (-1, -1))
 rightdown = (0, (-1, -1))
 leftdown = (float('inf'), (-1, -1))
@@ -77,8 +100,11 @@ for peak in docCnt:
 # cv2.waitKey(0)
 cv2.imwrite("image/img_enrode.jpg", img_open)
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 src = np.array([points[0], points[1], points[2], points[3]], dtype=np.float32)
 dst = np.array([[0, 0], [0, hh], [ww, hh], [ww, 0]], dtype=np.float32)
 
@@ -99,7 +125,11 @@ contours2,hierarchy=cv2.findContours(img_finish,cv2.RETR_TREE,cv2.CHAIN_APPROX_N
 for cnt in contours2:
     x,y,w,h=cv2.boundingRect(cnt)
     if w>h and w<300 and h<300:
+<<<<<<< HEAD
         cv2.rectangle(img_finish,(x,y),(x+w,y+h),(100,100,100),1)
+=======
+        cv2.rectangle(img_finish,(x,y),(x+w,y+h),(0,0,255),1)
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
         locations.append((x,y))
         ww.append(w)
         xx.append(x)
@@ -107,6 +137,7 @@ for cnt in contours2:
 
 
 
+<<<<<<< HEAD
 locations_arr=np.array([xx,yy])
 locations_arr=locations_arr.T
 print(locations_arr)
@@ -160,6 +191,20 @@ new=[]
 for i in range(0,len(labels)):
     new.append([locations[i],labels[i]])
     if labels[i]==up:
+=======
+y=km_model = KMeans(n_clusters=2,n_init=1,init=np.array([[img.shape[1]/2, 0], [img.shape[1]/2, img.shape[0]]])).fit(locations)
+
+labels = y.labels_
+
+
+
+print(xx)
+top=img_finish.shape[0]
+new=[]
+for i in range(0,len(labels)):
+    new.append([locations[i],labels[i]])
+    if labels[i]==0:
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
         _str='0'
         
     else:
@@ -168,6 +213,7 @@ for i in range(0,len(labels)):
         xx.remove(locations[i][0])
         if yy[i]<top:
             top=yy[i]+h
+<<<<<<< HEAD
     cv2.putText(img_finish,_str,locations[i],1,2,(0,0,0),4)
 ww.sort()
 cv2.imwrite('kmeans.jpg',img_finish)
@@ -185,6 +231,18 @@ cv2.imwrite('image/example.jpg',img)
 cv2.imwrite('image/img_cut.jpg',img_cut)
 
 
+=======
+    cv2.putText(img_finish,_str,locations[i],1,1,(255,0,0))
+ww.sort()
+cv2.imshow('img',img_finish)
+cv2.waitKey()
+
+img_cut=img_finish[0:top,:]
+img=img[0:top,:]
+cv2.imwrite('image/example.jpg',img)
+cv2.imwrite('image/img_cut.jpg',img_cut)
+
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 #cv2.waitKey()
 
 
@@ -225,6 +283,7 @@ for i in range(len(xx)):
 where=[[],[],[],[],[],[],[],[],[],[]]
 numbers=['0','2','3','4','5','6','7','8','9']
 list0=dict1['words_result']
+<<<<<<< HEAD
 all_top=[]
 for i in range(0,len(list0)):
     list0_5=list0[i].get('chars')
@@ -240,6 +299,12 @@ for i in range(len(list0)):
     if general_top<median-6*ww[-1] or general_top>median+6*ww[-1] :
         truenumber=-1
     elif len(same_words)!=1:
+=======
+for i in range(0,len(list0)):
+    list0_5=list0[i].get('chars')
+    same_words=list0[i].get('words')
+    if len(same_words)!=1:
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
         maxcount=0
         frequency=[[],[],[],[],[],[],[],[],[],[]]
         for i in range(0,10):
@@ -257,10 +322,14 @@ for i in range(len(list0)):
    
     for j in range(0,len(list0_5)):
         str_=list0_5[j].get('char')
+<<<<<<< HEAD
         if truenumber==-1:
             pass
         
         elif str_!=truenumber:
+=======
+        if str_!=truenumber:
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
             pass
         else:
             for number in numbers:
@@ -270,17 +339,27 @@ for i in range(len(list0)):
                     if int(number)>maxnumber:
                         maxnumber=int(number)
                     for x in xx:
+<<<<<<< HEAD
                         if list0_5[j].get('location').get('left') in range(x-int(0.2*ww[-1]),x+int(1.2*ww[-1])):
                             if clas[xx.index(x)]==[]:
                                 clas[xx.index(x)].append(number)
                                 print(number)
+=======
+                        if list0_5[j].get('location').get('left') in range(x,x+ww[-1]):
+                            if clas[xx.index(x)]==[]:
+                                clas[xx.index(x)].append(number)
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
                             elif int(str_)>int(clas [xx.index(x)][-1]):
                                 clas[xx.index(x)].append(number)
 
 print(clas)
 column=[member for member in clas if len(member)>maxnumber-2]
 print(column)
+<<<<<<< HEAD
 print(where)
+=======
+
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 
 
 ii=[i for i in range(0,len(clas)) if clas[i] not in column]
@@ -291,6 +370,7 @@ for i in ii:
     else:
         xx.pop(i)
 #print(where)
+<<<<<<< HEAD
 print(xx)
 print(column)
 print(len(xx))
@@ -318,20 +398,37 @@ print('remove result:',len(xx))
 
     
 
+=======
+print(len(xx))
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 print(len(column))
 
 listb=[]
 listb0=column[b-1]
+<<<<<<< HEAD
 for i in range(maxnumber+1):
+=======
+for i in range(0,maxnumber+1):
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
     i=str(i)
     if listb0.count(i)==0:
         listb.append(i)
 
+<<<<<<< HEAD
 b_=1
+=======
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 if listb!=[1]:
     for item in listb:
         if where[int(item)]!=[] and item!='1':
             b_=int(item)
+<<<<<<< HEAD
+=======
+else:
+    b_=1
+
+
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 
 listc=[]
 listc0=column[c-1]
@@ -340,12 +437,20 @@ for i in range(0,10):
     if listc0.count(i)==0:
         listc.append(i)
 
+<<<<<<< HEAD
 c_=1
+=======
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 if listc!=[1]:
     for item in listc:
         if where[int(item)]!=[] and item!='1':
             c_=int(item)
+<<<<<<< HEAD
 
+=======
+else:
+    c_=1
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 
 print('班级:',b_,c_,sep='')
 

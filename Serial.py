@@ -1,4 +1,15 @@
 
+<<<<<<< HEAD
+=======
+# import serial
+
+# ser = serial.Serial('COM3', 9600)
+# ser.open()
+# ser.write(b'a') # 写入数据
+# ser.close()
+# # data = ser.readline() # 读取数据
+# #print(data)
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
 
 import serial
 import time

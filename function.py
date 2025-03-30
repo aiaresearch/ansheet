@@ -4,6 +4,7 @@ from sklearn.cluster import KMeans
 import json
 def img_preprocess(img):
     img=cv2.pyrDown(img)
+<<<<<<< HEAD
     img=cv2.copyMakeBorder(img,10,10,0,0,cv2.BORDER_CONSTANT,value=(255,255,255))
     img=img[:,20:img.shape[1]-20]
     img_gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -16,6 +17,17 @@ def img_preprocess(img):
     img_open=(cv2.erode(img_open,kernel,iterations=5))
     cv2.imwrite('image/img_open.jpg',img_open)
     
+=======
+    img_gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    img_binary=img_thre=cv2.adaptiveThreshold(img_gray,100,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,31,30)
+
+
+    kernel=np.ones((3,3),np.uint8)
+    #img_open=cv2.morphologyEx(img_binary,cv2.MORPH_OPEN,kernel)
+    img_open=(cv2.dilate(img_binary,kernel,iterations=3))
+    img_open=(cv2.erode(img_open,kernel,iterations=3))
+    cv2.imwrite('image/img_open.jpg',img_open)
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
     return img,img_open
 
 def kmeans(xx,yy,locations,ww,h,img):
@@ -23,7 +35,10 @@ def kmeans(xx,yy,locations,ww,h,img):
     y=km_model = KMeans(n_clusters=2,n_init=1,init=np.array([[img.shape[1]/2, 0], [img.shape[1]/2, img.shape[0]]])).fit(locations)
 
     labels = y.labels_
+<<<<<<< HEAD
 
+=======
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
     #print(xx)
     top=img_finish.shape[0]
     new=[]
@@ -162,7 +177,11 @@ def find_contours(img_open):
     for contour in contours:
         rect = cv2.boundingRect(contour)
         x, y, w, h = rect
+<<<<<<< HEAD
         if w > 30 and w < 200 and h < 200:
+=======
+        if w > h and w > 10 and w < 150 and h < 150:
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
             #cv2.rectangle(img_open, (x, y), (x + w, y + h), (0, 0, 255), 1)
             locations.append((x, y))
             xx.append(x)
@@ -303,8 +322,11 @@ def classificate(dict1,xx,b,c,ww):
     return xx,number_top
 
 def compare(locations,column_location,W,number_top,b,c):
+<<<<<<< HEAD
     b_=0
     c_=1
+=======
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
     for point in locations:
         # Check if the point is within the target region
         print("\npoint:", point)
@@ -315,7 +337,10 @@ def compare(locations,column_location,W,number_top,b,c):
         # Rows
         left = 0
         right = len(column_location) - 1
+<<<<<<< HEAD
 
+=======
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
         while left < right:
             mid = (left + right) // 2
             if point[0] < column_location[mid]+W/2:
@@ -343,7 +368,10 @@ def compare(locations,column_location,W,number_top,b,c):
             b_=row
         elif col+1==c:
             c_=row
+<<<<<<< HEAD
         
+=======
+>>>>>>> ab8e2b460c4263b305da4ca61667c745e5cd355d
         # Extract the class ID
         # if col >= 0 and row >= 0:
         #     serial_num[col] = row
